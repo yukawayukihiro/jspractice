@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>アカウント登録</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+    <body>
+        <div class="base container">
+          <div class="row">
+            <h1>アカウント登録</h1>
+          </div>
+          <div class="row">
+            <div class="card" id="card">
+              <div class="card-block">
+                <form id="form-area" class="form-inline" method="post">
+                    <div class="form-group">
+                        <div class="input-group">
+                          <input id="namae" name="namae" type="text" class="form-control" placeholder="名前">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input id="nickname" name="nickname" type="text" class="form-control" placeholder="ニックネーム">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                      <input id="tuikaBtn" type="button" name="touroku" value="追加">
+                    </div>
+                    <table id="result-table">
+                      <thead>
+                      <tr>
+                      <th>名前</th>
+                      <th>ニックネーム</th>
+                      <th>削除</th>
+                      </tr>
+                      </thead>
+                      </table>
+                      
+                </form>
+                <div id="tuikaMoto">
+
+                </div>
+                <div id="result"></div>
+              </div>
+            </div>
+          </div>  
+        </div>
+      </div>
+      <div id="overLay">
+      </div>
+    <script>
+    let result=document.getElementById('result');
+    let tuika=document.getElementById('tuikaBtn');
+    let addBtn=0;
+
+    tuikaBtn.addEventListener('click',function() {
+        let namae=document.getElementById('namae');
+        let nickname=document.getElementById('nickname');
+    //設問1
+    /*
+        let el = document.getElementById("result");
+        el.textContent = namae.value+nickname.value;
+    */
+    //設問2
+    window.confirm(namae.value+'さん'+nickname.value+'を登録します。よろしいですか？');
+    //設問3
+    window.alert(namae.value+'さん'+nickname.value+'にて登録しました。');
+    //設問4
+    if( namae.value===""||nickname.value==="") {
+        return false;
+    }
+    //設問5
+    addBtn++; //インクリメント
+        if(addBtn>=3) {
+            tuika.style.visibility="hidden";
+            return false;
+        }
+    });
+    //設問6
+    window.addEventListener('DOMContentLoaded',() => {
+        tuikaBtn.addEventListener('click',() => {
+            let tbl=result.querySelector('table');
+            if(!tbl) {
+                tbl=document.createElement('table');
+                result.appendChild(tbl);
+            }
+    //設問7
+    const n1=namae.value;
+    const n2=nickname.value;
+        if(n1 && n2){
+            const tr=[n1,n2].reduce((a,b)=>(a.appendChild(Object.assign(document.createElement('td'),{textContent:b})),a),document.createElement('tr'));
+            tr.appendChild(Object.assign(document.createElement('input'),{type:'button',value:'削除',className:'del'}));
+            tbl.appendChild(tr);
+            namae.value='';
+            nickname.value='';
+        }
+        });
+    });
+    //設問8
+    document.addEventListener('click',(element)=>{
+        if(element.target.matches('.del')){
+            addBtn--; //デクリメント
+            tuika.style.visibility="visible";
+            element.target.closest('tr').remove();
+        }
+    });
+        </script>
+    </body>
+</html>
